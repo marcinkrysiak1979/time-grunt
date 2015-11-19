@@ -52,6 +52,8 @@ module.exports = function (grunt, cb) {
 		var name = grunt.task.current.nameArgs;
 		var diff = Date.now() - prevTime;
 
+		if (name.indexOf('watch') == 0) exit(0);
+		
 		if (prevTaskName && prevTaskName !== name) {
 			tableData.push([prevTaskName, diff]);
 		}
@@ -163,6 +165,6 @@ module.exports = function (grunt, cb) {
 			return;
 		}
 
-		process.exit(exitCode);
+		// process.exit(exitCode); //don't exit grunt, just show the stats
 	});
 };
