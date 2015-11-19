@@ -1,5 +1,5 @@
 {
-  "name": "time-grunt",
+  "name": "time-grunt-nowatch",
   "version": "1.2.2",
   "description": "Display the elapsed execution time of grunt tasks",
   "keywords": [
@@ -12,11 +12,13 @@
     "stats",
     "perf",
     "performance",
-    "tasks"
+    "tasks",
+    "watch"
   ],
   "license": "MIT",
   "author": {
     "name": "Sindre Sorhus",
+    "fork": "Marcin Krysiak",
     "email": "sindresorhus@gmail.com",
     "url": "sindresorhus.com"
   },
