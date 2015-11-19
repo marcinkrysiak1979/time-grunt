@@ -1,6 +1,6 @@
 {
   "name": "time-grunt-nowatch",
-  "version": "1.2.2",
+  "version": "1.0.0",
   "description": "Display the elapsed execution time of grunt tasks",
   "keywords": [
     "grunt",
@@ -18,14 +18,13 @@
   "license": "MIT",
   "author": {
     "name": "Sindre Sorhus",
-    "fork": "Marcin Krysiak",
-    "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com"
+    "forkby": "Marcin Krysiak",
+    "email": "marcin.krysiak@gmail.com"
   },
   "files": [
     "index.js"
   ],
-  "repository": "sindresorhus/time-grunt",
+  "repository": "marcinkrysiak1979/time-grunt-nowatch",
   "scripts": {
     "test": "grunt && grunt sigint"
   },
