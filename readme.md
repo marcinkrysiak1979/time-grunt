@@ -1,4 +1,4 @@
-# time-grunt [![Build Status](https://travis-ci.org/sindresorhus/time-grunt.svg?branch=master)](https://travis-ci.org/sindresorhus/time-grunt)
+# time-grunt-nowatch
 
 > Display the elapsed execution time of [grunt](http://gruntjs.com) tasks
 
@@ -8,7 +8,7 @@
 ## Install
 
 ```
-$ npm install --save-dev time-grunt
+$ npm install --save-dev time-grunt-nowatch
 ```
 
 
@@ -18,7 +18,7 @@ $ npm install --save-dev time-grunt
 // Gruntfile.js
 module.exports = function (grunt) {
 	// require it at the top and pass in the grunt instance
-	require('time-grunt')(grunt);
+	require('time-grunt-nowatch')(grunt);
 
 	grunt.initConfig();
 }
@@ -30,7 +30,7 @@ module.exports = function (grunt) {
 If you want to collect the timing stats for your own use, pass in a callback:
 
 ```js
-require('time-grunt')(grunt, function (stats, done) {
+require('time-grunt-nowatch')(grunt, function (stats, done) {
 	// do whatever you want with the stats
 	uploadReport(stats);
 
