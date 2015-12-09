@@ -13,7 +13,7 @@ function log(str) {
 	write(str + '\n', 'utf8');
 }
 
-module.exports = function (grunt, cb) {
+module.exports = function (grunt, verbose, cb) {
 	var now = new Date();
 	var startTimePretty = dateTime();
 	var startTime = now.getTime();
@@ -53,7 +53,7 @@ module.exports = function (grunt, cb) {
 		var diff = Date.now() - prevTime;
 
 		if (name.indexOf('watch') == 0) exit(0);
-		
+
 		if (prevTaskName && prevTaskName !== name) {
 			tableData.push([prevTaskName, diff]);
 		}
@@ -67,7 +67,7 @@ module.exports = function (grunt, cb) {
 		var longestTaskName = tableData.reduce(function (acc, row) {
 			var avg = row[1] / totalTime;
 
-			if (avg < 0.01 && !grunt.option('verbose')) {
+			if (avg < 0.01 && !grunt.option('verbose') && !verbose) {
 				return acc;
 			}
 
@@ -113,7 +113,7 @@ module.exports = function (grunt, cb) {
 		var tableDataProcessed = tableData.map(function (row) {
 			var avg = row[1] / totalTime;
 
-			if (numberIsNan(avg) ||  (avg < 0.01 && !grunt.option('verbose'))) {
+			if (numberIsNan(avg) ||  (avg < 0.01 && !grunt.option('verbose') && !verbose)) {
 				return;
 			}
 
