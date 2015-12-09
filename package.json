@@ -16,15 +16,14 @@
     "watch"
   ],
   "license": "MIT",
-  "author": {
-    "name": "Sindre Sorhus",
-    "forkby": "Marcin Krysiak",
-    "email": "marcin.krysiak@gmail.com"
-  },
+  "author": "Marcin Krysiak <marcin.krysiak@gmail.com>",
   "files": [
     "index.js"
   ],
-  "repository": "marcinkrysiak1979/time-grunt-nowatch",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcinkrysiak1979/time-grunt-nowatch.git"
+  },
   "scripts": {
     "test": "grunt && grunt sigint"
   },
@@ -43,5 +42,10 @@
   },
   "engines": {
     "node": ">=0.10.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/marcinkrysiak1979/time-grunt-nowatch/issues"
+  },
+  "homepage": "https://github.com/marcinkrysiak1979/time-grunt-nowatch#readme",
+  "main": "index.js"
 }
