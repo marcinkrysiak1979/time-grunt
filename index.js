@@ -159,7 +159,7 @@ module.exports = function (grunt, verbose, cb) {
 
 		if (cb) {
 			cb(tableData, function () {
-				process.exit(exitCode);
+				// process.exit(exitCode); //don't exit grunt, just call the callback
 			});
 
 			return;
