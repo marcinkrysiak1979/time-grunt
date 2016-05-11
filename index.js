@@ -31,28 +31,20 @@ module.exports = function (grunt, verbose, cb) {
     return;
   }
 
-  // crazy hack to work around stupid node-exit
-  // Can this be removed now that node-exit#4 has been resolved?
-  // https://github.com/cowboy/node-exit/issues/4
-  var originalExit = process.exit;
-
-  function exit(exitCode) {
-    clearInterval(interval);
-    process.emit('timegruntexit', exitCode);
-    exit = function () {};
-  }
-
-  var interval = setInterval(function () {
-    process.exit = exit;
-  }, 100);
-
-  process.exit = exit;
-
   hooker.hook(grunt.log, 'header', function () {
     var name = grunt.task.current.nameArgs;
     var diff = Date.now() - prevTime;
 
-    if (name.indexOf('watch') == 0) exit(0);
+    if (name.indexOf('watch') == 0) {
+      spitOutResults();
+      now = new Date();
+      startTimePretty = dateTime();
+      startTime = now.getTime();
+      prevTime = startTime;
+      prevTaskName = 'loading tasks';
+      tableData = [];
+      return;
+    }
 
     if (prevTaskName && prevTaskName !== name) {
       tableData.push([prevTaskName, diff]);
@@ -141,30 +133,21 @@ module.exports = function (grunt, verbose, cb) {
     process.exit();
   });
 
-  process.once('timegruntexit', function (exitCode) {
-    clearInterval(interval);
-
-    process.exit = originalExit;
-    hooker.unhook(grunt.log, 'header');
-
-    var diff = Date.now() - prevTime;
-
-    if (prevTaskName) {
-      tableData.push([prevTaskName, diff]);
-    }
-
+  function spitOutResults() {
     // `grunt.log.header` should be unhooked above, but in some cases it's not
     log('\n\n' + chalk.underline('Execution Time') + chalk.gray(' (' + startTimePretty + ')'));
     log(formatTable(tableData) + '\n');
-
     if (cb) {
-      cb(tableData, function () {
-        // process.exit(exitCode); //don't exit grunt, just call the callback
-      });
-
-      return;
+      cb(tableData, log);
     }
+  }
 
-    // process.exit(exitCode); //don't exit grunt, just show the stats
+  process.on('exit', function (exitCode) {
+    hooker.unhook(grunt.log, 'header');
+    var diff = Date.now() - prevTime;
+    if (prevTaskName) {
+      tableData.push([prevTaskName, diff]);
+    }
+    spitOutResults();
   });
 };
