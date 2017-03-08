@@ -10,7 +10,12 @@ module.exports = function (grunt) {
 		}
 	});
 
-	require('./')(grunt);
+	require('./')(grunt, false, function(stats, log) {
+    log("And this is some code that gets run on exit! Here are the stats:");
+    log(JSON.stringify(stats));
+  });
+
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
 	grunt.registerTask('test', function () {
 		setTimeout(this.async(), 1200);
@@ -46,6 +51,19 @@ module.exports = function (grunt) {
 		'This is the longest but very quick task name',
 		'This is a really long task name which is cropped in the middle'
 	]);
+
+  grunt.initConfig({
+    watch: {
+      files: ['**/*.js'],
+      tasks: ['test','test2'],
+    },
+  });
+
+  grunt.registerTask('build', [
+    'test',
+    'test2',
+    'watch',
+  ]);
 
 	grunt.registerTask('sigint', [
 		'test',
